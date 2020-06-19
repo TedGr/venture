@@ -19,14 +19,18 @@ public class Palindrome {
     }
 
     //将字符串转化成字符数组从链尾依次插入
-    private Node stringToNode(String str){
+    private static Node stringToNode(String str){
+        if(str == null){
+            return null;
+        }
+
         char[] c = str.toCharArray();
-        Node first = new Node(Character.MIN_VALUE,null);
+        Node first = null;
         Node last = null;
         for(int i = 0;i < c.length;i++){
             Node cur = new Node(c[i],null);
             if(i == 0){
-                first.next = cur;
+                first = cur;
             }else {
                 last.next = cur;
             }
@@ -35,26 +39,44 @@ public class Palindrome {
         return first;
     }
 
-    private boolean isReverse(Node node){
-        //是否是奇数node，若是则从中间node的next node开始比对，若不是则从中间node开始比对
-        boolean isOddNode = true;
+    private static boolean isPalindrome(Node node){
+        if(node == null){
+            return true;
+        }
         //快慢节点，用来判断中间节点
         Node slowNode = node;
         Node fastNode = node;
-        Node last;
-        while(fastNode.next != null){
+        //下一次循环的node，用来做reverse的中间node
+        Node cur = null;
+        while(fastNode != null && fastNode.next != null){
+            /*last = cur;
+            cur = new Node(slowNode.value,last);*/
+            Node last = cur;
+            cur = slowNode;
             slowNode = slowNode.next;
             fastNode = fastNode.next.next;
-            if(fastNode == null){
-                isOddNode = false;
-                fastNode = fastNode.next;
+            cur.next = last;
+
+        }
+
+        //slowNode.next = cur;
+        //若fastnode不为null，则是链长为奇数
+        if(fastNode != null){
+            slowNode = slowNode.next;
+        }
+
+        while (slowNode != null && cur != null){
+            if(slowNode.value != cur.value){
+                return false;
             }
-            last = slowNode;
+            slowNode = slowNode.next;
+            cur = cur.next;
         }
         return true;
     }
 
+    //ConcurentHashMap value 不能为null ，hashmap可以为null
     public static void main(String[] args) {
-
+        System.out.println(isPalindrome(stringToNode("abcba")));
     }
 }
