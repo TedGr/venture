@@ -124,6 +124,47 @@ public class SortAlgorithm {
         return temp;
     }
 
+    /**
+     * 快排 （time：O(nlogn) space:O(1) 不稳定）
+     *
+     * @param a
+     */
+    private static void quickSort(int[] a) {
+        if (a == null || a.length <= 1) {
+            return;
+        }
+
+        quick(a, 0, a.length - 1);
+    }
+
+    private static void quick(int[] a, int p, int r) {
+        if (p >= r) {
+            return;
+        }
+
+        int q = parition(a, p, r);
+
+        quick(a, p, q - 1);
+        quick(a, q + 1, r);
+    }
+
+    private static int parition(int[] a, int p, int r) {
+        int j = p;
+        for (int i = p; i <= r - 1; i++) {
+            if (a[i] <= a[r]) {
+                swap(a, i, j++);
+            }
+        }
+        swap(a, j, r);
+        return j;
+    }
+
+    private static void swap(int[] a, int i, int j) {
+        int temp = a[j];
+        a[j] = a[i];
+        a[i] = temp;
+    }
+
     public static void main(String[] args) {
         int[] a = new int[50000];
         for (int i = 0; i < 50000; i++) {
@@ -131,6 +172,9 @@ public class SortAlgorithm {
         }
         int[] bubblinga = a.clone();
         int[] insertiona = a.clone();
+        int[] mergea = a.clone();
+        int[] quicka = a.clone();
+
         Long startTime = System.currentTimeMillis();
         bubblingSort(bubblinga);
         Long endTime = System.currentTimeMillis();
@@ -142,9 +186,14 @@ public class SortAlgorithm {
         System.out.println("insertionSort time consuming(ms)：" + (endTime - startTime));
 
         startTime = System.currentTimeMillis();
-        mergeSort(a);
+        mergeSort(mergea);
         endTime = System.currentTimeMillis();
         System.out.println("mergeSort time consuming(ms)：" + (endTime - startTime));
+
+        startTime = System.currentTimeMillis();
+        quickSort(quicka);
+        endTime = System.currentTimeMillis();
+        System.out.println("quicka time consuming(ms)：" + (endTime - startTime));
 
     }
 }
