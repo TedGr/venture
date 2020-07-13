@@ -165,17 +165,61 @@ public class SortAlgorithm {
         a[i] = temp;
     }
 
-    public static void main(String[] args) {
-        int[] a = new int[50000];
-        for (int i = 0; i < 50000; i++) {
-            a[i] = (int) (Math.random() * 50000);
+    /**
+     * 计数排序 (time：O(n+k) space：O(n) 稳定) k是数据范围，即数组中最大的数
+     *
+     * @param a
+     */
+    public static void countingSort(int[] a) {
+        if(a.length <= 1){
+            return;
         }
+
+        int max = a[0];
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] > max) {
+                max = a[i];
+            }
+        }
+
+        int[] countArray = new int[max + 1];
+
+        for (int i = 0; i < a.length; i++) {
+            countArray[a[i]]++;
+        }
+
+        for (int i = 1; i < countArray.length; i++) {
+            countArray[i] = countArray[i] + countArray[i - 1];
+        }
+
+        int[] temp = new int[a.length];
+        //关键点，需要画图理解
+        for (int i = 0; i < a.length; i++) {
+            temp[(countArray[a[i]]--) - 1] = a[i];
+        }
+
+        for (int i = 0; i < a.length; i++) {
+            a[i] = temp[i];
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] a = new int[10];
+        for (int i = 0; i < 10; i++) {
+            a[i] = (int) (Math.random() * 10);
+        }
+        Arrays.stream(a).forEach(item -> System.out.print(item + ","));
+        System.out.println();
+        countingSort(a);
+        Arrays.stream(a).forEach(item -> System.out.print(item + ","));
         int[] bubblinga = a.clone();
         int[] insertiona = a.clone();
         int[] mergea = a.clone();
         int[] quicka = a.clone();
 
-        Long startTime = System.currentTimeMillis();
+
+
+        /*Long startTime = System.currentTimeMillis();
         bubblingSort(bubblinga);
         Long endTime = System.currentTimeMillis();
         System.out.println("bubblingSort time consuming(ms)：" + (endTime - startTime));
@@ -193,7 +237,7 @@ public class SortAlgorithm {
         startTime = System.currentTimeMillis();
         quickSort(quicka);
         endTime = System.currentTimeMillis();
-        System.out.println("quicka time consuming(ms)：" + (endTime - startTime));
+        System.out.println("quicka time consuming(ms)：" + (endTime - startTime));*/
 
     }
 }
