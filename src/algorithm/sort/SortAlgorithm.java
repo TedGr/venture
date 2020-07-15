@@ -204,14 +204,14 @@ public class SortAlgorithm {
     }
 
     public static void main(String[] args) {
-        int[] a = new int[10];
-        for (int i = 0; i < 10; i++) {
-            a[i] = (int) (Math.random() * 10);
+        int[] a = new int[50000];
+        for (int i = 0; i < 50000; i++) {
+            a[i] = (int) (Math.random() * 50000);
         }
-        Arrays.stream(a).forEach(item -> System.out.print(item + ","));
+        /*Arrays.stream(a).forEach(item -> System.out.print(item + ","));
         System.out.println();
         countingSort(a);
-        Arrays.stream(a).forEach(item -> System.out.print(item + ","));
+        Arrays.stream(a).forEach(item -> System.out.print(item + ","));*/
         int[] bubblinga = a.clone();
         int[] insertiona = a.clone();
         int[] mergea = a.clone();
@@ -219,7 +219,7 @@ public class SortAlgorithm {
 
 
 
-        /*Long startTime = System.currentTimeMillis();
+        Long startTime = System.currentTimeMillis();
         bubblingSort(bubblinga);
         Long endTime = System.currentTimeMillis();
         System.out.println("bubblingSort time consuming(ms)：" + (endTime - startTime));
@@ -237,7 +237,7 @@ public class SortAlgorithm {
         startTime = System.currentTimeMillis();
         quickSort(quicka);
         endTime = System.currentTimeMillis();
-        System.out.println("quicka time consuming(ms)：" + (endTime - startTime));*/
+        System.out.println("quicka time consuming(ms)：" + (endTime - startTime));
 
     }
 }
