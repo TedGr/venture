@@ -1,9 +1,7 @@
 package algorithm.sort;
 
-import java.util.Arrays;
-
 /**
- * 冒泡排序和插入排序
+ * 排序算法
  *
  * @Author: gongran
  * @Date: 2020 2020/7/5 10:31 上午

@@ -39,7 +39,7 @@ public class DichotomySeek {
      * @return
      */
     private static int recursiveDichotomySeek(int[] a, int low, int high, int seekNum) {
-        if(low > high){
+        if (low > high) {
             return -1;
         }
         int mid = low + ((high - low) >> 1);
@@ -53,8 +53,84 @@ public class DichotomySeek {
         }
     }
 
+    /**
+     * 查找第一个值等于给定值的元素(存在重复)
+     */
+    private static int recursiveDichotomySeekFirst(int[] a, int low, int high, int seekNum) {
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            if (a[mid] == seekNum) {
+                if (mid == 0 || a[mid - 1] != seekNum) {
+                    return mid;
+                }
+            }
+            if (a[mid] >= seekNum) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 查找最后一个等于给定值的元素
+     */
+    private static int recursiveDichotomySeekLast(int[] a, int low, int high, int seekNum) {
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            if (a[mid] == seekNum) {
+                if (mid == high || a[mid + 1] != seekNum) {
+                    return mid;
+                }
+            }
+            if (a[mid] > seekNum) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 查找第一个大于等于给定值的元素
+     */
+    private static int recursiveDichotomySeekFirstGreaterOrEqualTo(int[] a, int low, int high, int seekNum) {
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            if (a[mid] >= seekNum) {
+                if (mid == 0 || a[mid - 1] < seekNum) {
+                    return mid;
+                }
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 查找最后一个小于等于给定值的元素
+     */
+    private static int recursiveDichotomySeekLastLessOrEqualTo(int[] a, int low, int high, int seekNum) {
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            if(a[mid] <= seekNum){
+                if(mid == high || a[mid + 1] > seekNum){
+                    return mid;
+                }
+                low = mid + 1;
+            }else{
+                high = mid - 1;
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
-        int[] a = new int[]{1, 5, 6, 7, 8, 9, 12, 13, 17, 19};
-        System.out.println(recursiveDichotomySeek(a, 3, 9, 12));
+        int[] a = new int[]{1, 5, 5, 7, 7, 7, 12, 13, 17, 19};
+        System.out.println(recursiveDichotomySeekLastLessOrEqualTo(a, 0, 9, 11));
     }
 }
